@@ -1,0 +1,28 @@
+ <div class="container">   
+  <div class="alert alert-info alert-dismissible fade show" role="alert">
+  </div>
+  <h2>My Rooms</h2>
+  <p>room count: <%= @rooms.count %></p>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Number</th>
+        <th>Description</th>
+        <th>Price</th>
+        <th>Address</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @rooms.each do |room| %>
+        <tr>
+          <td><%= room.id %></td>
+          <td><%= room.name %></td>
+          <td><%= room.description %></td>
+          <td><%= room.price %></td>
+          <td><%= room.address %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+ </div> 
