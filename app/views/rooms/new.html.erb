@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+  <html>
+   <div class="center-container">
+
+    <h1>新規ゲストハウス登録</h1>
+
+    <%= form_with(model: @room, local: true) do |form| %>
+      <% if @room.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@room.errors.count, "error") %>が発生しました:</h2>
+          <ul>
+            <% @room.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="field">
+        <%= form.label :name, "部屋名" %>
+        <%= form.text_field :name %>
+      </div>
+
+      <div class="field">
+        <%= form.label :description, "詳細" %>
+        <%= form.text_area :description %>
+      </div>
+
+      <div class="field">
+        <%= form.label :price, "1日あたりの料金" %>
+        <%= form.number_field :price %>
+      </div>
+
+      <div class="field">
+        <%= form.label :address, "都道府県" %>
+        <%= form.text_field :address %>
+      </div>
+
+      <div class="field">
+        <%= form.label :image, "画像" %>
+        <%= form.file_field :image %>
+      </div>
+
+      <div class="actions">
+        <%= form.submit "登録する" %>
+      </div>
+    <% end %>
+   </div>
+  </html>

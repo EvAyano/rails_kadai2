@@ -1,0 +1,32 @@
+<%# app/views/reservations/show.html.erb %>
+
+<h1>予約内容の確認</h1>
+
+<div class="reservation-details">
+  <% if @room.image.attached? %>
+    <div class="room-image">
+      <%= image_tag @room.image %>
+    </div>
+  <% else %>
+    <p>画像はありません。</p>
+  <% end %>
+  <p>ゲストハウス名: <%= @room.name %></p>
+  <p>チェックイン日: <%= @reservation.check_in_date %></p>
+  <p>チェックアウト日: <%= @reservation.check_out_date %></p>
+  <p>宿泊日数: <%= (@reservation.check_out_date - @reservation.check_in_date).to_i %>日</p>
+  <p>人数: <%= @reservation.number_of_people %>人</p>
+  <p>合計料金: <%= @total_price %>円</p>
+</div>
+
+<!-- 予約確定フォーム -->
+<%= form_with model: @reservation, url: reservations_path, method: :post, local: true do |form| %>
+  <%= form.hidden_field :check_in_date %>
+  <%= form.hidden_field :check_out_date %>
+  <%= form.hidden_field :number_of_people %>
+  <%= form.hidden_field :room_id, value: @room.id %>
+  
+  <%= form.submit "予約を確定する", class: "btn btn-primary" %>
+<% end %>
+
+<!-- キャンセル（部屋の詳細ページに戻る） -->
+<%= link_to 'キャンセル', room_path(@room), class: "btn btn-secondary" %>

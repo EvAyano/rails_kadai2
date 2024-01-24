@@ -1,0 +1,29 @@
+<div class="partial">
+<%# app/views/shared/_header.html.erb %>
+ 
+  <div class="navbar navbar-expand-lg navbar-light bg-light">
+   <%= link_to 'Guest House App', rooms_path, class: "nav-link" %>
+    <% if user_signed_in? %>
+      <div class="nav-item dropdown">
+      <% if current_user.icon_image.attached? %>
+        <%= image_tag current_user.icon_image, class: "user-icon" %>
+      <% end %>
+        <%= link_to '#', class: "nav-link dropdown-toggle", role: "button", id: "navbarDropdown", data: { toggle: "dropdown" }, aria: { haspopup: "true", expanded: "false" } do %>
+          <%= current_user.name %>
+        <% end %>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <%= link_to '新規部屋登録', new_room_path, class: "dropdown-item" %>
+          <%= link_to '登録した部屋', my_rooms_path, class: "dropdown-item" %>
+          <%= link_to '予約一覧', reservations_path, class: "dropdown-item" %> 
+          <%= link_to 'プロフィール', show_profile_user_path(current_user), class: "dropdown-item" %>
+          <%= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: "dropdown-item" %>
+        </div>
+      </div>
+    <% else %>
+      <div class="auth-links">
+        <%= link_to 'ログイン', new_user_session_path, class: "nav-link-auth" %>
+        <%= link_to '新規登録', new_user_registration_path, class: "nav-link-auth" %>
+      </div>
+     <% end %>
+  </div>
+</div>

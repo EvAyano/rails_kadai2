@@ -1,0 +1,76 @@
+/* ヘッダー */
+.partial .navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 80px;
+  padding: 10px;
+  background-color: pink !important;
+}
+
+
+
+.partial .nav-item {
+  display: flex;
+  align-items: center;
+}
+
+
+.partial .nav-link {
+  margin-right: 10px;
+  font: small-caps bold 24px/1 sans-serif;
+}
+
+
+.partial .nav-link-auth {
+  margin: 0 10px; 
+}
+
+.partial .auth-links {
+  display: flex;
+  align-items: center;
+  margin-left: auto; /* 右側に寄せる */
+}
+
+.partial .nav-link-auth {
+  margin: 0 10px; /* 左右の余白 */
+  font: small-caps bold 12px/1 sans-serif;
+  color: black;
+}
+
+/* ドロップダウンメニュー */
+.partial .dropdown {
+  position: relative; 
+}
+
+
+.partial .dropdown-menu {
+  position: absolute; 
+  z-index: 1000; 
+  top: 100%; 
+  left: 0; 
+  right: 0; 
+  max-width: 100px; 
+  overflow: hidden; 
+}
+
+/* ドロップダウンメニューの中身 */
+.partial .dropdown-item {
+  white-space: nowrap; /* メニュー項目が折り返されないようにする */
+  max-width: 100%; 
+}
+
+/* ユーザーアイコン */
+.partial .user-icon {
+    width: 40px; 
+    height: 40px; 
+    border-radius: 50%; 
+    object-fit: cover; 
+    margin-right: 10px; 
+    background-color: #f0f0f0; 
+}
+
+/* ドロップダウンメニューのユーザー名 */
+.partial .nav-link.dropdown-toggle {
+    padding-left: 50px; 
+}

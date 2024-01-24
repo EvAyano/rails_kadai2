@@ -1,0 +1,29 @@
+<%# app/views/users/show_profile.html.erb %>
+
+<div class="user-profile">
+  <div class="user-profile-item">
+    <strong>アイコン画像：</strong>
+    <% if @user.icon_image.attached? %>
+      <%= image_tag @user.icon_image, class: "user-icon" %>
+    <% else %>
+      <p>No image available</p>
+    <% end %>
+  </div>
+
+  <div class="user-profile-item">
+    <strong>名前：</strong>
+    <p><%= @user.name %></p>
+  </div>
+
+  <div class="user-profile-item">
+    <strong>自己紹介：</strong>
+    <% if @user.introduction.present? %>
+      <p><%= @user.introduction %></p>
+    <% else %>
+      <p>No introduction provided.</p>
+    <% end %>
+  </div>
+
+  <%= link_to 'プロフィール編集', edit_profile_user_path(@user), class: 'btn btn-secondary' %>
+  <%= link_to 'アカウント情報表示', show_account_info_user_path(@user), class: 'btn btn-secondary' %>
+</div>

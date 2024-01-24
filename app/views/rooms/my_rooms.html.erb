@@ -1,0 +1,38 @@
+<%# 自分の登録した部屋一覧/my_rooms.html.erb %>
+<h1>My Guest House</h1>
+
+<% if @rooms.any? %>
+  <div class="rooms">
+    <% @rooms.each do |room| %>
+      <div class="room">
+        <div class="room-info">
+          <div class="room-text">
+            <h2><%= link_to room.name, room_path(room) %></h2>
+            <p><%= room.description %></p>
+            <p>料金/日: <%= room.price %>円</p>
+            <p>住所: <%= room.address %></p>
+            <p>作成日: <%= room.created_at.strftime("%Y-%m-%d") %></p>
+
+          </div>
+          <div class="room-image">
+            <% if room.image.attached? %>
+              <%= image_tag room.image %>
+            <% else %>
+              <p>No image available</p>
+            <% end %>
+          </div>
+          <div class="dropdown">
+            <button class="dropbtn">オプション</button>
+            <div class="dropdown-content">
+              <%= link_to '詳細', room_path(room) %>
+              <%= link_to '編集', edit_room_path(room) %>
+              <%= link_to '登録削除', room, method: :delete, data: { confirm: '本当に登録を削除しますか？' } %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <p>登録した部屋はまだありません</p>
+<% end %>

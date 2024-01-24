@@ -1,0 +1,34 @@
+<%# app/views/reservations/edit_confirm.html.erb %>
+<h1>予約内容の確認</h1>
+
+<div class="reservation-details">
+  <% if @room.image.attached? %>
+    <div class="room-image">
+      <%= image_tag @room.image %>
+    </div>
+  <% else %>
+    <p>画像はありません。</p>
+  <% end %>
+  <p>部屋名: <%= @room.name %></p>
+  <p>Address: <%= @room.address %></p>
+  <p>Price: <%= @room.price %>円</p>
+</div>
+
+<div class="reservation-details">
+  <!-- 確認内容の表示 -->
+  <p>チェックイン日: <%= @reservation.check_in_date %></p>
+  <p>チェックアウト日: <%= @reservation.check_out_date %></p>
+  <p>宿泊人数: <%= @reservation.number_of_people %></p>
+  <p>合計料金: <%= @total_price %>円</p>
+</div>
+
+<%= form_with model: @reservation, url: reservation_path(@reservation), method: :patch, local: true do |form| %>
+  <%= form.hidden_field :check_in_date, value: @reservation.check_in_date %>
+  <%= form.hidden_field :check_out_date, value: @reservation.check_out_date %>
+  <%= form.hidden_field :number_of_people, value: @reservation.number_of_people %>
+
+  <%= form.submit "予約内容の変更を確定", class: "btn btn-primary" %>
+<% end %>
+
+
+<%= link_to '編集に戻る', edit_reservation_path(@reservation), class: "btn btn-secondary" %>

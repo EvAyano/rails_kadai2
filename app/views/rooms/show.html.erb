@@ -1,0 +1,49 @@
+<%# app/views/rooms/show.html.erb %>
+<h1>ゲストハウスの詳細</h1>
+
+<div class="room-details">
+  <p><strong>ゲストハウス名:</strong> <%= @room.name %></p>
+  <p><strong>詳細:</strong> <%= @room.description %></p>
+  <p><strong>1日あたりの料金:</strong> <%= @room.price %>円</p>
+  <p><strong>住所:</strong> <%= @room.address %></p>
+
+  <% if @room.image.attached? %>
+    <div class="room-image">
+      <%= image_tag @room.image %>
+    </div>
+  <% else %>
+    <p>画像はありません。</p>
+  <% end %>
+</div>
+
+
+
+<%= form_with url: reservations_confirm_path, method: :get, local: true do |form| %>
+
+  <%= form.hidden_field :room_id, value: @room.id %>
+  <%= form.hidden_field :check_in_date %>
+  <%= form.hidden_field :check_out_date %>
+  <%= form.hidden_field :number_of_people %>
+
+
+  <div class="form-group">
+    <%= form.label :check_in_date, "チェックイン日" %>
+    <%= form.date_field :check_in_date, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :check_out_date, "チェックアウト日" %>
+    <%= form.date_field :check_out_date, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :number_of_people, "宿泊人数" %>
+    <%= form.number_field :number_of_people, class: "form-control" %>
+  </div>
+
+  <%= form.submit "予約内容を確認", class: "btn btn-primary" %>
+<% end %>
+
+
+
+<%= link_to '一覧に戻る', rooms_path %>
