@@ -1,6 +1,15 @@
 <%# app/views/rooms/show.html.erb %>
 <h1>ゲストハウスの詳細</h1>
-
+<!-- エラーメッセージ表示 -->
+<% if @reservation&.errors&.any? %>
+  <div id="error_explanation">
+    <ul>
+      <% @reservation.errors.full_messages.each do |error| %>
+        <li><%= error %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
 <div class="room-details">
   <p><strong>ゲストハウス名:</strong> <%= @room.name %></p>
   <p><strong>詳細:</strong> <%= @room.description %></p>
@@ -19,26 +28,21 @@
 
 
 <%= form_with url: reservations_confirm_path, method: :get, local: true do |form| %>
-
-  <%= form.hidden_field :room_id, value: @room.id %>
-  <%= form.hidden_field :check_in_date %>
-  <%= form.hidden_field :check_out_date %>
-  <%= form.hidden_field :number_of_people %>
-
+  <%= form.hidden_field :room_id, value: @room.id, name: 'reservation[room_id]' %>
 
   <div class="form-group">
     <%= form.label :check_in_date, "チェックイン日" %>
-    <%= form.date_field :check_in_date, class: "form-control" %>
+    <%= form.date_field :check_in_date, class: "form-control", name: 'reservation[check_in_date]' %>
   </div>
 
   <div class="form-group">
     <%= form.label :check_out_date, "チェックアウト日" %>
-    <%= form.date_field :check_out_date, class: "form-control" %>
+    <%= form.date_field :check_out_date, class: "form-control", name: 'reservation[check_out_date]' %>
   </div>
 
   <div class="form-group">
     <%= form.label :number_of_people, "宿泊人数" %>
-    <%= form.number_field :number_of_people, class: "form-control" %>
+    <%= form.number_field :number_of_people, class: "form-control", name: 'reservation[number_of_people]' %>
   </div>
 
   <%= form.submit "予約内容を確認", class: "btn btn-primary" %>

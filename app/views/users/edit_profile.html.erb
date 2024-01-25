@@ -1,15 +1,15 @@
   <%= form_with(model: @user, url: update_profile_user_path(@user), local: true, multipart: true) do |form| %>
-    <% if @user.errors.any? %>
-      <div id="error_explanation">
-        <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+   <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2>エラーが発生しました</h2> 
 
-        <ul>
-        <% @user.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-        </ul>
-      </div>
-    <% end %>
+      <ul>
+      <% @user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
 
     <div class="field">
       <%= form.label :icon_image, 'プロフィール画像' %>

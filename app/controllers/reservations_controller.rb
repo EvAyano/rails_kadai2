@@ -40,13 +40,17 @@ class ReservationsController < ApplicationController
   
   #予約編集確認
   def edit_confirm
-    @reservation = Reservation.find(params[:reservation][:id])
-    @reservation.assign_attributes(confirm_params)
-
-    @room = Room.find(@reservation.room_id)
-    @total_price = calculate_total_price(@reservation)
+    @reservation = current_user.reservations.find(params[:reservation][:id])
+    @reservation.assign_attributes(reservation_params) # 編集内容を仮に割り当てる
   
-    render :edit_confirm
+    if @reservation.valid? # 検証を行う
+      @room = Room.find(@reservation.room_id)
+      @total_price = calculate_total_price(@reservation)
+      render :edit_confirm
+    else
+      @room = @reservation.room
+      render :edit # エラーがあれば編集画面に戻る
+    end
   end
 
  #予約編集確定
@@ -64,16 +68,22 @@ class ReservationsController < ApplicationController
   end
 
   def confirm
-    @reservation = Reservation.new
-    @reservation.room_id = params[:room_id]
-    @reservation.check_in_date = params[:check_in_date]
-    @reservation.check_out_date = params[:check_out_date]
-    @reservation.number_of_people = params[:number_of_people]
+    @reservation = Reservation.new(confirm_params)
+    @room = Room.find(params[:reservation][:room_id])
+    @reservation.user = current_user  # 現在のユーザーを予約に関連付ける
+
   
-    @room = Room.find(params[:room_id])
-    @total_price = calculate_total_price(@reservation)
-    render :show
+    if @reservation.valid?
+      @total_price = calculate_total_price(@reservation)
+      render :show
+    else
+      render 'rooms/show'
+    end
   end
+  
+  
+  
+  
 
   def destroy
     puts "DELETING NOW"
@@ -97,7 +107,8 @@ class ReservationsController < ApplicationController
   end
 
   def set_room
-    @room = Room.find(params[:room_id])
+    room_id = params[:reservation][:room_id]
+    @room = Room.find(room_id)
   end
 
   def reservation_params
@@ -105,8 +116,8 @@ class ReservationsController < ApplicationController
   end
   
   def confirm_params
-    params.require(:reservation).permit(:id, :room_id, :check_in_date, :check_out_date, :number_of_people)
-
+    params.require(:reservation).permit(:room_id, :check_in_date, :check_out_date, :number_of_people)
   end
+
 
 end

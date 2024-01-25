@@ -1,6 +1,14 @@
 <%# app/views/reservations/edit.html.erb %>
 <h1>予約内容の編集</h1>
-
+<% if @reservation.errors.any? %>
+  <div id="error_explanation">
+    <ul>
+      <% @reservation.errors.full_messages.each do |error| %>
+        <li><%= error %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
 <div class="reservation-details">
   <% if @room.image.attached? %>
     <div class="room-image">

@@ -6,16 +6,11 @@ Rails.application.routes.draw do
   # ルートパス（ホームページ）
   root 'rooms#index'
 
-
   get 'my_rooms', to: 'rooms#my_rooms'
   get 'rooms/search', to: 'rooms#search'
   
-
   # ログインせずにアクセス可能なページ
   resources :rooms, only: [:index, :show, :new] # GuestHouse一覧と詳細
-  # resources :rooms
-  # 検索結果ページなどの追加ルート（必要に応じて）
-  
 
 
   # ログインが必要なページ

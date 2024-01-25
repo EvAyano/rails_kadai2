@@ -1,0 +1,17 @@
+ja:
+  errors:
+    messages:
+      blank: "を入力してください"
+      too_short: "は%{count}文字以上に設定してください"
+      not_saved:
+        one: "エラーが発生しました" 
+        other: "エラーが発生しました" # エラーが複数の場合なども同じ表記でいく
+
+  activerecord:
+    attributes:
+      user:
+        email: "メールアドレス"
+        password: "パスワード"
+        password_confirmation: "パスワード（確認用）"
+        name: "名前"
+        current_password: "現在のパスワード"
