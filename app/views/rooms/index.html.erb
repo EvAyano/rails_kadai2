@@ -1,0 +1,32 @@
+<%# /rooms%>
+<div class="container">   
+  
+  <%= form_with(url: rooms_path, method: :get, local: true) do |form| %>
+  <%= form.label :area, "エリアで検索" %>
+  <%= form.select :area, ['東京', '大阪', '京都', '札幌'], prompt: "Select an area" %>
+
+  <%= form.label :keyword, "キーワードで検索" %>
+  <%= form.text_field :keyword, placeholder: "Enter facility name or details" %>
+
+  <%= form.submit "Search" %>
+<% end %>
+
+  <h2>Guest Houses</h2>
+  <p>ゲストハウスの数: <%= @rooms.count %></p>
+
+  <% @rooms.each do |room| %>
+    <div class="room">
+      <h3><%= link_to room.name, room_path(room) %></h3>
+      <p><%= room.description %></p>
+      <p>料金/日: <%= room.price %>円</p>
+      <p>住所: <%= room.address %></p>
+
+      <% if room.image.attached? %>
+        <%= image_tag room.image, class: "room-image" %>
+      <% else %>
+        <p>No image available</p>
+      <% end %>
+      <%= link_to '詳細', room_path(room), class: "btn btn-primary" %>
+    </div>
+  <% end %>
+</div>

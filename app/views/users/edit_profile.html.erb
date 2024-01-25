@@ -1,0 +1,33 @@
+  <%= form_with(model: @user, url: update_profile_user_path(@user), local: true, multipart: true) do |form| %>
+   <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2>エラーが発生しました</h2> 
+
+      <ul>
+      <% @user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+    <div class="field">
+      <%= form.label :icon_image, 'プロフィール画像' %>
+      <%= form.file_field :icon_image %>
+    </div>
+
+    <div class="field">
+      <%= form.label :name, '名前' %>
+      <%= form.text_field :name %>
+    </div>
+
+    <div class="field">
+      <%= form.label :introduction, '自己紹介' %>
+      <%= form.text_area :introduction %>
+    </div>
+
+    <div class="actions">
+      <%= form.submit "保存" %>
+      <%= link_to 'キャンセル', show_profile_user_path(@user), class: 'btn btn-secondary' %>
+    </div>
+  <% end %>

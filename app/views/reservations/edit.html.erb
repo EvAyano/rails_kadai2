@@ -1,0 +1,47 @@
+<%# app/views/reservations/edit.html.erb %>
+<h1>予約内容の編集</h1>
+<% if @reservation.errors.any? %>
+  <div id="error_explanation">
+    <ul>
+      <% @reservation.errors.full_messages.each do |error| %>
+        <li><%= error %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+<div class="reservation-details">
+  <% if @room.image.attached? %>
+    <div class="room-image">
+      <%= image_tag @room.image %>
+    </div>
+  <% else %>
+    <p>画像はありません。</p>
+  <% end %>
+  <p>部屋名: <%= @room.name %></p>
+  <p>Address: <%= @room.address %></p>
+  <p>Price: <%= @room.price %>円</p>
+
+</div>
+
+<%= form_with model: @reservation, url: edit_confirm_reservations_path, method: :get, local: true do |form| %>
+
+
+  <%= form.hidden_field :id %>
+
+  <div class="form-group">
+    <%= form.label :check_in_date, "チェックイン日" %>
+    <%= form.date_field :check_in_date, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :check_out_date, "チェックアウト日" %>
+    <%= form.date_field :check_out_date, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :number_of_people, "宿泊人数" %>
+    <%= form.number_field :number_of_people, class: "form-control" %>
+  </div>
+
+  <%= form.submit "変更内容を確認", class: "btn btn-primary" %>
+<% end %>

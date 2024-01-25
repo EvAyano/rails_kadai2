@@ -1,0 +1,29 @@
+
+<h1>予約一覧</h1>
+
+<% @reservations.each do |reservation| %>
+  <div class="reservation">
+    <div class="reservation-image">
+      <%= image_tag reservation.room.image if reservation.room.image.attached? %>
+    </div>
+    <div class="reservation-details">
+      <h3><%= link_to reservation.room.name, room_path(reservation.room) %></h3>
+      <p><%= reservation.room.description %></p>
+      <p>合計料金: <%= reservation.total_price %>円</p>
+      <p>チェックイン日: <%= reservation.check_in_date %></p>
+      <p>チェックアウト日: <%= reservation.check_out_date %></p>
+      <p>予約確定日時: <%= reservation.created_at.strftime("%Y-%m-%d %H:%M") %></p>
+    </div>
+
+    <!-- ドロップダウンメニュー -->
+ <div class="dropdown">
+      <%= link_to '#', class: 'dropdown-toggle', data: { toggle: 'dropdown' } do %>
+        オプション
+      <% end %>
+      <div class="dropdown-menu">
+        <%= link_to '編集', edit_reservation_path(reservation), class: 'dropdown-item' %>
+        <%= link_to 'キャンセル', reservation_path(reservation), method: :delete, data: { confirm: '本当にキャンセルしますか？' }, class: 'dropdown-item' %>
+      </div>
+    </div>
+  </div>
+<% end %>

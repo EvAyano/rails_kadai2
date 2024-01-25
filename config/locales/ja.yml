@@ -1,0 +1,38 @@
+ja:
+  errors:
+    messages:
+      blank: "を入力してください"
+      too_short: "は%{count}文字以上に設定してください"
+      not_a_number: "は数値でなければなりません"
+
+  activerecord:
+    models:
+      room: "部屋"
+      reservation: "予約"
+    attributes:
+      room:
+        name: "部屋名"
+        description: "説明"
+        price: "料金"
+        address: "住所"
+      reservation:
+        check_in_date: "チェックイン日"
+        check_out_date: "チェックアウト日"
+        number_of_people: "宿泊人数"
+    errors:
+      models:
+        room:
+          attributes:
+            price:
+              blank: "を入力してください"
+              not_a_number: "は数値でなければなりません"
+              greater_than_or_equal_to: "は1円以上でなければなりません"
+        reservation:
+          attributes:
+            check_in_date:
+              blank: "チェックイン日を入力してください"
+            check_out_date:
+              blank: "チェックアウト日を入力してください"
+            number_of_people:
+              blank: "を入力してください"
+              greater_than_or_equal_to: "は1人以上に設定してください"
